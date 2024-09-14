@@ -36,7 +36,7 @@ async function updateUser(username: string, { firstName, lastName }: UpdateUser)
 
 // updateUser("john", { firstName: "Johnny", lastName: "Doe" });
 
-async function getUser (username: string) {
+async function getUser(username: string) {
     const res = await prisma.user.findUnique({
         where: {
             username
@@ -46,3 +46,46 @@ async function getUser (username: string) {
 }
 
 // getUser("john");
+
+async function createTodo(userId: number, title: string, description: string) {
+    const todo = await prisma.todos.create({
+      data: {
+        title,
+        description,
+        userId
+      },
+    });
+    console.log(todo);
+  
+  }
+  
+//   getUser(1, "go to gym", "go to gym and do 10 pushups");
+
+//   getUser(1, "go to gym", "go to gym and do 10 pushups");
+
+async function getTodos(userId: number, ) {
+    const todos = await prisma.todos.findMany({
+        where: {
+        userId: userId,
+        },
+    });
+    console.log(todos);
+}
+
+getTodos(1);
+
+async function getTodosAndUserDetails(userId: number, ) {
+    const todos = await prisma.todos.findMany({
+        where: {
+            userId: userId,
+        },
+        select: {
+            user: true,
+            title: true,
+            description: true
+        }
+    });
+    console.log(todos);
+}
+
+getTodosAndUserDetails(1);
