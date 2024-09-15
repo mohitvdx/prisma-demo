@@ -47,34 +47,35 @@ async function getUser(username: string) {
 
 // getUser("john");
 
-async function createTodo(userId: number, title: string, description: string) {
+async function createTodo(title: string, description: string, done: boolean, userId: number, date: Date) {
     const todo = await prisma.todos.create({
-      data: {
-        title,
-        description,
-        userId
-      },
-    });
+        data: {
+            title,
+            description,
+            userId,
+            done,
+            date
+        }
+    },
+    );
     console.log(todo);
-  
-  }
-  
-//   getUser(1, "go to gym", "go to gym and do 10 pushups");
 
-//   getUser(1, "go to gym", "go to gym and do 10 pushups");
+}
 
-async function getTodos(userId: number, ) {
+createTodo("Todo 1", "Description 1", false, 1, new Date());
+
+async function getTodos(userId: number,) {
     const todos = await prisma.todos.findMany({
         where: {
-        userId: userId,
+            userId: userId,
         },
     });
     console.log(todos);
 }
 
-getTodos(1);
+// getTodos(1);
 
-async function getTodosAndUserDetails(userId: number, ) {
+async function getTodosAndUserDetails(userId: number,) {
     const todos = await prisma.todos.findMany({
         where: {
             userId: userId,
@@ -88,4 +89,4 @@ async function getTodosAndUserDetails(userId: number, ) {
     console.log(todos);
 }
 
-getTodosAndUserDetails(1);
+// getTodosAndUserDetails(1);

@@ -1,71 +1,56 @@
 # Prisma Demo Project
 
-This project demonstrates the basic usage of Prisma, an open-source database toolkit.
-
-## Prerequisites
-
-- Node.js (v12 or later)
-- npm or yarn
+This project demonstrates the use of Prisma ORM with TypeScript, Node and PostgreSQL to build a simple TODO application.
 
 ## Setup
 
-1. Clone this repository
-2. Install dependencies:
+1. Install dependencies:
    ```
    npm install
    ```
-   or
+
+2. Configure your database connection in `.env`:
    ```
-   yarn install
+   DATABASE_URL="postgresql://username:password@localhost:5432/your_database"
    ```
 
-## Prisma Commands
+3. Apply database migrations:
+   ```
+   npx prisma migrate dev
+   ```
 
-Here are the main Prisma commands used in this project:
-
-### `npx prisma init`
-
-Initializes a new Prisma project. This creates a new `prisma` directory with a `schema.prisma` file and a `.env` file.
-
-### `npx prisma generate`
-
-Generates the Prisma Client based on your Prisma schema. Run this command after making changes to your `schema.prisma` file.
-
-### `npx prisma db push`
-
-Pushes the state of your Prisma schema file to the database without using migrations. Useful for prototyping and development.
-
-### `npx prisma migrate dev`
-
-Creates a new migration based on your schema changes, applies it to the database, and updates the Prisma Client.
-
-### `npx prisma migrate deploy`
-
-Applies all pending migrations to the database in production or staging environments.
-
-### `npx prisma studio`
-
-Opens Prisma Studio, a visual editor for your database data.
-
-### `npx prisma format`
-
-Formats your `schema.prisma` file.
-
-### `npx prisma validate`
-
-Validates your Prisma schema.
-
-### `npx prisma db seed`
-
-Runs the seeding script specified in your `package.json` to populate your database with initial data.
-
-## Usage
-
-1. Define your data model in `prisma/schema.prisma`
-2. Generate Prisma Client:
+4. Generate Prisma client:
    ```
    npx prisma generate
    ```
-3. Use Prisma Client in your application code to interact with your database.
 
-For more detailed information, refer to the [Prisma documentation](https://www.prisma.io/docs/).
+## Project Structure
+
+- `prisma/schema.prisma`: Defines the data model
+- `src/index.ts`: Main application file 
+
+## Key Concepts
+
+1. **ORM (Object-Relational Mapping)**: Prisma abstracts database operations, allowing you to work with JavaScript objects instead of SQL queries.
+
+2. **Schema Definition**: The `schema.prisma` file defines your data model and relationships between tables.
+
+3. **Migrations**: Prisma automatically generates and applies database migrations based on your schema changes.
+
+4. **Prisma Client**: Auto-generated TypeScript client for type-safe database queries.
+
+5. **Relationships**: Defined in the schema (e.g., User has many Todos).
+
+## Useful Commands
+
+- Compile the src: `tsc -b`
+- Run the app: `node dist/index.js`
+- Run Prisma Studio (GUI for database): `npx prisma studio`
+- Create a new migration: `npx prisma migrate dev --name <migration_name>`
+
+## Tips
+
+- Use the Prisma VS Code extension for better schema visualization.
+- Make sure to install Typescript compiler.
+- To see SQL queries, add `log: ['query']` to your PrismaClient configuration.
+- Regularly update your schema and run migrations as your data model evolves.
